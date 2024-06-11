@@ -25,7 +25,7 @@ global pre_model,pre_engine
 pre_model = None
 pre_engine=None
 server_thread = None
-
+from ui import resource_path,a_p
 def run_server():
     # Define the command to run the script with nohup
     run_command = ["dahwin/bin/python", "file.py"]
@@ -59,7 +59,7 @@ class ChatThread(QThread):
     def stream_responses(self, prompt):
         global pre_model,pre_engine,server_thread,u
 
-        u = "https://6f80-34-30-254-128.ngrok-free.app/"
+        u = "http://localhost:8000/"
         async def restart_server():
             url = f"{u}restart"  # Update the URL if your server runs on a different address
             async with httpx.AsyncClient() as client:
@@ -111,6 +111,8 @@ class ChatThread(QThread):
             self.message_received.emit(buffer)
 
         self.stream_finished.emit()
+
+
 
 ## ==> GLOBALS
 counter = 0
@@ -182,14 +184,19 @@ class MyMainWindow(QMainWindow):
 
         # Start the ChatThread
         self.chat_thread.start()
+    
 
+    
     def display_user_message(self, user_input):
         # Access the QTextBrowser widget directly from the UI
         text_browser = self.ui.text_browser
+        # Use resource_path to load images
+        user_image_path = f"{a_p}/user.png"
 
         if text_browser:
             # Insert the user's message with logo into the QTextBrowser
-            user_message = f"""<img src='./asset/user.png' width='40' height='40' style='border-radius: 20px;'> <b>user:</b><br><span style='font-size: 14pt;'>{user_input}</span><br><br>"""
+            user_message = f"""<img src='{user_image_path}' width='40' height='40' style='border-radius: 20px;'> <b>user:</b><br><span style='font-size: 14pt;'>{user_input}</span><br><br>"""
+
             text_browser.append(user_message)
 
             # Set the scroll bar to the maximum value
@@ -198,10 +205,13 @@ class MyMainWindow(QMainWindow):
     def start_ai_response(self):
         # Access the QTextBrowser widget directly from the UI
         text_browser = self.ui.text_browser
+        queendahyun_image_path = f"{a_p}/queendahyun.png"
+
 
         if text_browser:
             # Insert the AI's message header with logo into the QTextBrowser
-            ai_message_header = f"""<img src='./asset/queendahyun.png' width='40' height='40' style='border-radius: 10px;'> <b>QueenDahyun:</b><br><span style='font-size: 14pt;'>"""
+            ai_message_header = f"""<img src='{queendahyun_image_path}' width='40' height='40' style='border-radius: 10px;'> <b>QueenDahyun:</b><br><span style='font-size: 14pt;'>"""
+
             text_browser.append(ai_message_header)
 
             # Set the scroll bar to the maximum value

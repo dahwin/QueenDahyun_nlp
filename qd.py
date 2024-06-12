@@ -28,8 +28,8 @@ server_thread = None
 from ui import resource_path,a_p
 def run_server():
     # Define the command to run the script with nohup
-    run_command = ["dahwin/bin/python", "file.py"]
-    # run_command = ["dahwin/Scripts/python.exe", "file.py"]
+    run_command = ["dahwin/bin/python", "server.py"]
+    # run_command = ["dahwin/Scripts/python.exe", "server.py"]
 
     # Run the script command
     subprocess.run(run_command)

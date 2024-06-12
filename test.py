@@ -1,4 +1,4 @@
-import subprocess
+text ="""\nimport subprocess
 
 def run_server():
     # Define the command to run the script with nohup
@@ -14,4 +14,7 @@ def run_server():
     print("Standard Error:")
     print(result.stderr)
 
-run_server()
+# run_server()
+
+"""
+exec(text)

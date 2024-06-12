@@ -25,14 +25,21 @@ global pre_model,pre_engine
 pre_model = None
 pre_engine=None
 server_thread = None
-from ui import resource_path,a_p
+from ui import resource_path,a_p,ubuntu
+from server import text
+import uvicorn
 def run_server():
-    # Define the command to run the script with nohup
-    run_command = ["dahwin/bin/python", "server.py"]
-    # run_command = ["dahwin/Scripts/python.exe", "server.py"]
+    # # Define the command to run the script with nohup
+    # run_command = ["dahwin/bin/python", "server.py"]
+    # # run_command = ["dahwin/Scripts/python.exe", "server.py"]
 
-    # Run the script command
-    subprocess.run(run_command)
+    # # Run the script command
+    # subprocess.run(run_command)
+    python_3_11_path = "/usr/local/bin/dahwin/bin/python3.11"
+    # Use subprocess to run the code
+    process = subprocess.Popen([python_3_11_path, "-c", text])
+    process.wait()
+
 
 def start_server_thread():
     global server_thread
@@ -40,6 +47,9 @@ def start_server_thread():
     server_thread.start()
 
 start_server_thread()
+def close_server():
+        if server_thread is not None:
+            server_thread.join()  # Join the server thread
 class ChatThread(QThread):
 
     message_received = Signal(str)
@@ -60,6 +70,7 @@ class ChatThread(QThread):
         global pre_model,pre_engine,server_thread,u
 
         u = "http://localhost:8000/"
+        u = "https://6525-27-147-206-228.ngrok-free.app/"
         async def restart_server():
             url = f"{u}restart"  # Update the URL if your server runs on a different address
             async with httpx.AsyncClient() as client:
@@ -140,8 +151,10 @@ class MyMainWindow(QMainWindow):
         self.accumulated_ai_response = ""
 
     def custom_close_event(self, event):
+        
         # Call the original closeEvent to handle the standard closing behavior
         super().closeEvent(event)
+
 
     def hide_download_completion_widgets(self):
         try:
@@ -191,7 +204,10 @@ class MyMainWindow(QMainWindow):
         # Access the QTextBrowser widget directly from the UI
         text_browser = self.ui.text_browser
         # Use resource_path to load images
-        user_image_path = f"{a_p}/user.png"
+        if ubuntu==True:
+            user_image_path = f"{a_p}/user.png"
+        else:
+            user_image_path =f"./asset/user.png"
 
         if text_browser:
             # Insert the user's message with logo into the QTextBrowser
@@ -205,13 +221,15 @@ class MyMainWindow(QMainWindow):
     def start_ai_response(self):
         # Access the QTextBrowser widget directly from the UI
         text_browser = self.ui.text_browser
-        queendahyun_image_path = f"{a_p}/queendahyun.png"
+        if ubuntu==True:
+            queendahyun_image_path = f"{a_p}/queendahyun.png"
+        else:
+            queendahyun_image_path = f"./asset/queendahyun.png"
 
 
         if text_browser:
-            # Insert the AI's message header with logo into the QTextBrowser
-            ai_message_header = f"""<img src='{queendahyun_image_path}' width='40' height='40' style='border-radius: 10px;'> <b>QueenDahyun:</b><br><span style='font-size: 14pt;'>"""
 
+            ai_message_header = f"""<img src='{queendahyun_image_path}' width='80' height='80'  style='border-radius: 10px;'> <b>QueenDahyun:</b><br><span style='font-size: 14pt;'>"""
             text_browser.append(ai_message_header)
 
             # Set the scroll bar to the maximum value
@@ -309,9 +327,11 @@ def run_additional_code():
     window = SplashScreen()
 
     sys.exit(app.exec())
+    
 
 
 additional_code_thread = threading.Thread(target=run_additional_code)
 
 additional_code_thread.start()
 additional_code_thread.join()
+

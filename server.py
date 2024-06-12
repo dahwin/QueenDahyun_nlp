@@ -15,19 +15,19 @@
 # while True:
 #     time.sleep(100)
 
+text = """
 import os
 import sys
 import time
 import typing as t
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-from vllm import LLM, SamplingParams
+# from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer
 import asyncio
-import nest_asyncio
 from typing import AsyncGenerator
 import torch
-nest_asyncio.apply()
+
 app = FastAPI()
 
 
@@ -329,3 +329,4 @@ async def restart_server():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+"""

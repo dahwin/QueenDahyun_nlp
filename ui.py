@@ -26,14 +26,18 @@ def resource_path(relative_path):
      return os.path.join(os.path.abspath("."), relative_path)
 
 a_p = '/usr/local/bin/asset/'
-
+ubuntu = False
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1342, 805)
         icon = QIcon()
-        icon.addFile(f"{a_p}/queendahyun.png", QSize(), QIcon.Normal, QIcon.Off)
+        if ubuntu==True:
+            f = f"{a_p}/queendahyun.png"
+        else:
+            f =  f"./asset/queendahyun.png"
+        icon.addFile(f, QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
         # Replace the existing style sheet rules for side_widget, side_widget QPushButton, and chat_list
         MainWindow.setStyleSheet(u"QPushButton {\n"
@@ -288,7 +292,11 @@ class Ui_MainWindow(QMainWindow):
         self.label = QLabel(self.frame_4)
         self.label.setObjectName(u"label")
         self.label.setMaximumSize(QSize(17, 17))
-        self.label.setPixmap(QPixmap(f"{a_p}/logout.png"))
+        if ubuntu==True:
+            f = f"{a_p}/logout.png"
+        else:
+            f = f"./asset/logout.png"
+        self.label.setPixmap(QPixmap(f))
         self.label.setScaledContents(True)
 
         self.horizontalLayout_5.addWidget(self.label)
@@ -357,7 +365,11 @@ class Ui_MainWindow(QMainWindow):
 
 
         icon2 = QIcon()
-        icon2.addFile(f"{a_p}/send.svg", QSize(), QIcon.Normal, QIcon.Off)
+        if ubuntu==True:
+            f = f"{a_p}/send.svg"
+        else:
+            f = f"./asset/send.svg"
+        icon2.addFile(f, QSize(), QIcon.Normal, QIcon.Off)
         self.send_btn.setIcon(icon2)
         self.send_btn.setIconSize(QSize(35, 35))
 

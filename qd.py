@@ -27,7 +27,6 @@ pre_engine=None
 server_thread = None
 from ui import resource_path,a_p,ubuntu
 from server import text
-import uvicorn
 def run_server():
     # # Define the command to run the script with nohup
     # run_command = ["dahwin/bin/python", "server.py"]

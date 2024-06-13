@@ -26,7 +26,7 @@ def resource_path(relative_path):
      return os.path.join(os.path.abspath("."), relative_path)
 
 a_p = '/usr/local/bin/asset/'
-ubuntu = False
+ubuntu = True
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():

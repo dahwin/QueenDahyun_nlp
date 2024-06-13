@@ -27,7 +27,8 @@ from transformers import AutoTokenizer
 import asyncio
 from typing import AsyncGenerator
 import torch
-
+import nest_asyncio
+nest_asyncio.apply()
 app = FastAPI()
 
 
@@ -70,7 +71,7 @@ class CustomTextStreamer:
         self.token_cache.extend(value.tolist())
         text = self.tokenizer.decode(self.token_cache, **self.decode_kwargs)
 
-        if text.endswith("\n"):
+        if text.endswith("\\n"):
             printable_text = text[self.print_len:]
             self.token_cache = []
             self.print_len = 0
@@ -216,7 +217,7 @@ class Pipeline:
                     yield x['text'][len(last):]
                     last = x["text"]
                     num_tokens = x["num_tokens"]
-                print(f"\nGenerated {num_tokens} tokens in {time.time() - start} seconds.")
+                print(f"\\nGenerated {num_tokens} tokens in {time.time() - start} seconds.")
 
                 if not (self.llm.llm_engine.has_unfinished_requests() or prompts):
                     break
@@ -272,11 +273,11 @@ async def generate(request: Request):
         )
     model = model_cache[model_id]
 
-    pattern = r"system\n(.+?)(?:\n\n|\Z)"
+    pattern = r"system\\n(.+?)(?:\\n\\n|\Z)"
     match = re.search(pattern, prompt_template, re.DOTALL)
     system_message = match.group(1) if match else ""
     # Remove new lines
-    system_message = system_message.replace('\n', '')
+    system_message = system_message.replace('\\n', '')
     messages = [
         {"role": "system", "content": f"{system_message}"},
         {"role": "user", "content": f"{prompt}"},

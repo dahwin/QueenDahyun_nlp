@@ -22,7 +22,7 @@ import time
 import typing as t
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-# from vllm import LLM, SamplingParams
+from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer
 import asyncio
 from typing import AsyncGenerator

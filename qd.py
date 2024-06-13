@@ -69,7 +69,6 @@ class ChatThread(QThread):
         global pre_model,pre_engine,server_thread,u
 
         u = "http://localhost:8000/"
-        u = "https://6525-27-147-206-228.ngrok-free.app/"
         async def restart_server():
             url = f"{u}restart"  # Update the URL if your server runs on a different address
             async with httpx.AsyncClient() as client:

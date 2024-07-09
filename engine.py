@@ -293,7 +293,7 @@ class Widget(QWidget):
         if model_id!=None :
             self.temperature_slider.setValue(temperature*100)
         else:
-            self.temperature_slider.setValue(70)
+            self.temperature_slider.setValue(10)
         self.temperature_slider.setTickInterval(1)
         self.temperature_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
         self.temperature_slider.valueChanged.connect(lambda value: self.temperature_label.setText(f"Temperature: {value / 100:.2f}"))
@@ -402,7 +402,7 @@ class Widget(QWidget):
         if model_id!=None :
             self.vllm_temperature_slider.setValue(temperature*100)
         else:
-            self.vllm_temperature_slider.setValue(70)
+            self.vllm_temperature_slider.setValue(10)
         self.vllm_temperature_slider.setTickInterval(1)
         self.vllm_temperature_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
         self.vllm_temperature_slider.valueChanged.connect(lambda value: self.vllm_temperature_label.setText(f"Temperature: {value / 100:.2f}"))

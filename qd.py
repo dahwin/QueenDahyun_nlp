@@ -27,6 +27,7 @@ pre_engine=None
 server_thread = None
 from ui import resource_path,a_p,ubuntu
 from server import text
+
 def run_server():
     # # Define the command to run the script with nohup
     # run_command = ["dahwin/bin/python", "server.py"]
@@ -45,7 +46,7 @@ def start_server_thread():
     server_thread = threading.Thread(target=run_server)
     server_thread.start()
 
-start_server_thread()
+# start_server_thread()
 def close_server():
         if server_thread is not None:
             server_thread.join()  # Join the server thread
@@ -304,7 +305,7 @@ class SplashScreen(QMainWindow):
         self.ui.progressBar.setValue(counter)
 
         # CLOSE SPLASH SCREE AND OPEN APP
-        if counter > 10:
+        if counter > 100:
             # STOP TIMER
             self.timer.stop()
 

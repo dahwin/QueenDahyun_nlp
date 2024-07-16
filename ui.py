@@ -11,8 +11,6 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QSpacerItem, QTextEdit, QVBoxLayout, QWidget,QTextBrowser)
 from PySide6.QtGui import QMovie
 from PySide6.QtCore import QTimer
-
-
 import subprocess
 import os
 import time
@@ -463,12 +461,6 @@ class Ui_MainWindow(QMainWindow):
         QMetaObject.connectSlotsByName(MainWindow)
 
 
-
-
-
-
-
-
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"QueenDahyun", None))
         self.new_chat_btn.setText(QCoreApplication.translate("MainWindow", u"New Conversation", None))
@@ -479,6 +471,6 @@ class Ui_MainWindow(QMainWindow):
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Log In", None))
         self.send_btn.setText("")
     def show_engine_window(self):
-        self.engine_window = EngineWindow()  # Create an instance of EngineWindow
+        self.engine_window = EngineWindow()
         self.engine_window.show()  
 
